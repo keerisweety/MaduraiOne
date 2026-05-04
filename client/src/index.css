@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FAFAFA;
+}
+
+input, button {
+  font-family: inherit;
+}
+
+input[type="tel"],
+input[type="text"],
+input[type="number"] {
+  font-size: 16px;
+}
+
+.blind-mode {
+  font-size: 20px;
+}
+
+.blind-mode button,
+.blind-mode .transport-card {
+  min-height: 80px;
+  font-size: 24px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.animate-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.page-container {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #1565C0 0%, #1565C0 35%, #FAFAFA 35%);
+}
+
+.page-container-dark {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #1a1a1a 0%, #1a1a1a 35%, #2d2d2d 35%);
+}
+
+.btn-primary {
+  @apply bg-primary text-white font-semibold py-4 px-6 rounded-xl w-full transition-all duration-200 active:scale-[0.98];
+}
+
+.btn-primary:disabled {
+  @apply opacity-50 cursor-not-allowed active:scale-100;
+}
+
+.btn-secondary {
+  @apply bg-white text-primary border-2 border-primary font-semibold py-4 px-6 rounded-xl w-full transition-all duration-200 active:scale-[0.98];
+}
+
+.input-field {
+  @apply w-full h-14 px-4 border-2 border-gray-200 rounded-xl text-lg transition-all duration-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20;
+}
+
+.input-field.error {
+  @apply border-red-500 focus:border-red-500 focus:ring-red-500/20;
+}
+
+.transport-card {
+  @apply bg-white rounded-2xl p-5 shadow-md flex flex-col items-center justify-center gap-3 transition-all duration-200 active:scale-[0.98] cursor-pointer border-2 border-transparent hover:border-primary/20;
+}
+
+.transport-card.active {
+  @apply border-primary bg-primary/5;
+}
+
+.website-card {
+  @apply bg-white rounded-xl p-4 shadow-sm flex items-center gap-4 transition-all duration-200 active:scale-[0.98] cursor-pointer border border-gray-100;
+}
+
+.website-card:hover {
+  @apply shadow-md border-primary/30;
+}
