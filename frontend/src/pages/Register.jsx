@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function Register() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -27,13 +29,18 @@ function Register() {
     setLoading(true)
 
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })
       })
       
-      const data = await res.json()
+      let data
+      try {
+        data = await res.json()
+      } catch {
+        throw new Error('Server returned an invalid response')
+      }
       
       if (!res.ok) {
         throw new Error(data.error || 'Registration failed')

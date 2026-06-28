@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function Admin() {
   const { user } = useContext(AuthContext)
   const navigate = useNavigate()
@@ -23,14 +25,14 @@ function Admin() {
   }, [user, navigate])
 
   const fetchTransports = () => {
-    fetch('http://localhost:5000/api/transports/')
+    fetch(`${API_URL}/api/transports/`)
       .then(res => res.json())
       .then(data => setTransports(data))
   }
 
   const fetchStats = () => {
     const token = localStorage.getItem('token')
-    fetch('http://localhost:5000/api/admin/stats', {
+    fetch(`${API_URL}/api/admin/stats`, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
       .then(res => res.json())
@@ -41,8 +43,8 @@ function Admin() {
     e.preventDefault()
     const token = localStorage.getItem('token')
     const url = editingTransport 
-      ? `http://localhost:5000/api/admin/transports/${editingTransport.id}`
-      : 'http://localhost:5000/api/admin/transports'
+      ? `${API_URL}/api/admin/transports/${editingTransport.id}`
+      : `${API_URL}/api/admin/transports`
     
     const res = await fetch(url, {
       method: editingTransport ? 'PUT' : 'POST',
@@ -79,7 +81,7 @@ function Admin() {
   const handleDelete = async (id) => {
     if (!confirm('Are you sure you want to delete this transport service?')) return
     const token = localStorage.getItem('token')
-    const res = await fetch(`http://localhost:5000/api/admin/transports/${id}`, {
+    const res = await fetch(`${API_URL}/api/admin/transports/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     })

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function PlaceDetail() {
   const { id } = useParams()
   const { user } = useContext(AuthContext)
@@ -13,7 +15,7 @@ function PlaceDetail() {
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/places/${id}`)
+fetch(`${API_URL}/api/places/${id}`)
       .then(res => res.json())
       .then(data => {
         setPlace(data.place)
@@ -37,7 +39,7 @@ function PlaceDetail() {
     const token = localStorage.getItem('token')
 
     try {
-      const res = await fetch('http://localhost:5000/api/reviews/', {
+      const res = await fetch(`${API_URL}/api/reviews/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +51,7 @@ function PlaceDetail() {
       if (res.ok) {
         setComment('')
         setRating(5)
-        const response = await fetch(`http://localhost:5000/api/places/${id}`)
+        const response = await fetch(`${API_URL}/api/places/${id}`)
         const data = await response.json()
         setPlace(data.place)
         setReviews(data.reviews)

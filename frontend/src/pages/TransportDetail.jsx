@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const categoryIcons = {
   bus: '🚌',
   auto: '🛺',
@@ -21,7 +23,7 @@ function TransportDetail() {
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/transports/${id}`)
+fetch(`${API_URL}/api/transports/${id}`)
       .then(res => res.json())
       .then(data => {
         setTransport(data.transport)
@@ -45,7 +47,7 @@ function TransportDetail() {
     const token = localStorage.getItem('token')
 
     try {
-      const res = await fetch('http://localhost:5000/api/reviews/', {
+      const res = await fetch(`${API_URL}/api/reviews/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +59,7 @@ function TransportDetail() {
       if (res.ok) {
         setComment('')
         setRating(5)
-        const response = await fetch(`http://localhost:5000/api/transports/${id}`)
+        const response = await fetch(`${API_URL}/api/transports/${id}`)
         const data = await response.json()
         setTransport(data.transport)
         setReviews(data.reviews)

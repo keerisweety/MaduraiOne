@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import TransportCard from '../components/TransportCard'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function Home() {
   const [featuredTransports, setFeaturedTransports] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/transports/featured')
+    fetch(`${API_URL}/api/transports/featured`)
       .then(res => res.json())
       .then(data => setFeaturedTransports(data))
       .catch(err => console.error('Error:', err))

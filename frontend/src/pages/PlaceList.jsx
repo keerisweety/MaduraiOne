@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
 import PlaceCard from '../components/PlaceCard'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function PlaceList() {
   const { category } = useParams()
   const [searchParams] = useSearchParams()
@@ -18,7 +20,7 @@ function PlaceList() {
     if (filter && filter !== 'all') queryParams.set('category', filter)
     if (searchTerm) queryParams.set('search', searchTerm)
 
-    fetch(`http://localhost:5000/api/places/?${queryParams}`)
+    fetch(`${API_URL}/api/places/?${queryParams}`)
       .then(res => res.json())
       .then(data => {
         setPlaces(data)
